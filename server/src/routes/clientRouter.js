@@ -7,6 +7,7 @@ const clientRoutes = [
   "/",
   "/genres",
   "genres/:id",
+  "/boardgames/:id",
   "/user-sessions/new", 
   "/users/new"
 ];
