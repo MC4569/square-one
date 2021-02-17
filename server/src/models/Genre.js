@@ -14,6 +14,21 @@ class Genre extends Model {
       }
     }
   }
+
+  static get relationMappings() {
+    const BoardGame = require('./BoardGame.js')
+
+    return {
+      boardgames: {
+        relation: Model.HasManyRelation,
+        modelClass: BoardGame,
+        join: {
+          from: 'genres.id',
+          to: 'boardgames.genreId'
+        }
+      }
+    }
+  }
 }
 
 module.exports = Genre

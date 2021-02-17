@@ -21,7 +21,7 @@ genresRouter.get('/:id', async (req, res) => {
   try {
     const genreId = req.params.id
     const genre = await Genre.query().findById(genreId)
-    serializedGenre = await GenreSerializer.getDetails(genre)
+    const serializedGenre = await GenreSerializer.getDetails(genre)
     return res.status(200).json({ genre: serializedGenre })
   } catch (error) {
     return res.status(500).json({ errors: error })
