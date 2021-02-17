@@ -7,6 +7,7 @@ import "../assets/scss/main.scss";
 import RegistrationForm from "./registration/RegistrationForm";
 import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
+import LandingPage from './LandingPage.js'
 import GenreIndexPage from './GenreIndexPage.js'
 
 const App = (props) => {
@@ -24,7 +25,7 @@ const App = (props) => {
     <Router>
       <TopBar user={currentUser} />
       <Switch>
-        <Route exact path='/' />
+        <Route exact path='/' component={LandingPage} />
         <Route exact path='/users/new' component={RegistrationForm} />
         <Route exact path='/user-sessions/new' component={SignInForm} />
         <Route exact path='/genres' component={GenreIndexPage}/>
