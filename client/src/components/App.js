@@ -9,6 +9,7 @@ import SignInForm from "./authentication/SignInForm";
 import TopBar from "./layout/TopBar";
 import LandingPage from './LandingPage.js'
 import GenreIndexPage from './GenreIndexPage.js'
+import GenreShowPage from './GenreShowPage.js'
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -29,6 +30,7 @@ const App = (props) => {
         <Route exact path='/users/new' component={RegistrationForm} />
         <Route exact path='/user-sessions/new' component={SignInForm} />
         <Route exact path='/genres' component={GenreIndexPage}/>
+        <Route exact path='/genres/:id' component={GenreShowPage}/>
       </Switch>
     </Router>
   );
