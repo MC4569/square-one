@@ -8,7 +8,7 @@ import ReviewSerializer from '../../../serializers/ReviewSerializer.js'
 const boardgameReviewsRouter = new express.Router({ mergeParams: true })
 
 boardgameReviewsRouter.post('/', async (req, res) => {
-  const boardgameId = req.params.id
+  const boardgameId = req.params.boardgameId
   const body = req.body
   const cleanBody = cleanUserInput(body)
 
