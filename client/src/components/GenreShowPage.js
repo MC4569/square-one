@@ -51,7 +51,7 @@ const GenreShowPage = props => {
           <div className="small-4 small-offset-4" id="new-boardgame-form-card">
             <Link to={`/genres/${genreId}/boardgames/new`}>
               <div className="new-boardgame-link-content">
-                <h4>Don't see a game you're looking for?</h4>
+                <h4>Don't see the game you're looking for?</h4>
                 <p>Submit a request to add a new game here!</p>
               </div>
             </Link>
