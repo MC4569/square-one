@@ -34,7 +34,7 @@ const App = (props) => {
         <Route exact path='/user-sessions/new' component={SignInForm} />
         <Route exact path='/genres' component={GenreIndexPage} />
         <Route exact path='/genres/:id' component={GenreShowPage} />
-        <AuthenticatedRoute exact path='/boardgames/:id' component={BoardGameShowPage} />
+        <AuthenticatedRoute exact path='/boardgames/:id' component={BoardGameShowPage} user={currentUser} />
         <AuthenticatedRoute exact path='/genres/:genreId/boardgames/new' component={NewBoardGameForm} user={currentUser} />
       </Switch>
     </Router>

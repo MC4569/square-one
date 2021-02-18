@@ -18,7 +18,7 @@ class BoardGame extends Model {
   }
 
   static get relationMappings() {
-    const {Genre} = require('./index.js')
+    const {Genre, Review} = require('./index.js')
 
     return {
       genre: {
@@ -27,6 +27,14 @@ class BoardGame extends Model {
         join: {
           from: 'boardgames.genreId',
           to: 'genres.id'
+        }
+      },
+      reviews: {
+        relation: Model.HasManyRelation,
+        modelClass: Review,
+        join: {
+          from: 'boardgames.id',
+          to: 'reviews.boardgameId'
         }
       }
     }
