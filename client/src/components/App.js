@@ -11,7 +11,8 @@ import TopBar from "./layout/TopBar";
 import LandingPage from './LandingPage.js'
 import GenreIndexPage from './GenreIndexPage.js'
 import GenreShowPage from './GenreShowPage.js'
-import BoardGameShowPage from './BoardGameShowPage'
+import BoardGameShowPage from './BoardGameShowPage.js'
+import NewBoardGameForm from './NewBoardGameForm.js'
 
 const App = (props) => {
   const [currentUser, setCurrentUser] = useState(undefined);
@@ -31,9 +32,10 @@ const App = (props) => {
         <Route exact path='/' component={LandingPage} />
         <Route exact path='/users/new' component={RegistrationForm} />
         <Route exact path='/user-sessions/new' component={SignInForm} />
-        <Route exact path='/genres' component={GenreIndexPage}/>
-        <Route exact path='/genres/:id' component={GenreShowPage}/>
-        <AuthenticatedRoute exact path='/boardgames/:id' component={BoardGameShowPage}/>
+        <Route exact path='/genres' component={GenreIndexPage} />
+        <Route exact path='/genres/:id' component={GenreShowPage} />
+        <AuthenticatedRoute exact path='/boardgames/:id' component={BoardGameShowPage} />
+        <AuthenticatedRoute exact path='/genres/:genreId/boardgames/new' component={NewBoardGameForm} user={currentUser} />
       </Switch>
     </Router>
   );

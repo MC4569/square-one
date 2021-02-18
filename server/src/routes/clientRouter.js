@@ -8,6 +8,7 @@ const clientRoutes = [
   "/genres",
   "genres/:id",
   "/boardgames/:id",
+  "/genres/:genreId/boardgames/new",
   "/user-sessions/new", 
   "/users/new"
 ];

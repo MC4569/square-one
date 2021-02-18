@@ -2,6 +2,7 @@ import express from 'express'
 
 import { Genre } from '../../../models/index.js'
 import GenreSerializer from '../../../serializers/GenreSerializer.js'
+import genreBoardgamesRouter from './genreBoardgamesRouter.js'
 
 const genresRouter = new express.Router()
 
@@ -27,5 +28,7 @@ genresRouter.get('/:id', async (req, res) => {
     return res.status(500).json({ errors: error })
   }
 })
+
+genresRouter.use('/:genreId/boardgames', genreBoardgamesRouter)
 
 export default genresRouter
