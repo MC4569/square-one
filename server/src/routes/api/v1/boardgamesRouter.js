@@ -2,8 +2,11 @@ import express from 'express'
 
 import { BoardGame } from '../../../models/index.js'
 import BoardGameSerializer from '../../../serializers/BoardGameSerializer.js'
+import boardgameReviewsRouter from './boardgameReviewsRouter.js'
 
 const boardgamesRouter = new express.Router()
+
+boardgamesRouter.use('/:boardgameId/reviews', boardgameReviewsRouter)
 
 boardgamesRouter.get('/:id', async (req, res) => {
   const id = req.params.id
