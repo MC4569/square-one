@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react' 
+import React from 'react' 
 
 import ReviewTile from './ReviewTile'
 
-const ReviewList = ({reviews, user, errors}) => {
+const ReviewList = ({ reviews, user, patchReview, reviewDelete, errors }) => {
   const reviewTiles = reviews.map(review => {
     return (
       <ReviewTile
         key={review.id}
         review={review} 
+        patchReview={patchReview}
+        reviewDelete={reviewDelete}
         user={user}
         errors={errors}
       />
