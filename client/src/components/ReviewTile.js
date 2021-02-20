@@ -2,8 +2,9 @@ import React, { useState } from 'react'
 
 import EditingButtons from './EditingButtons.js'
 import EditReviewForm from './EditReviewForm.js'
+import VoteButtons from './VoteButtons.js'
 
-const ReviewTile = ({ review, user, patchReview, errors, reviewDelete }) => {
+const ReviewTile = ({ review, user, patchReview, errors, addVote, reviewDelete }) => {
   const [editable, setEditable] = useState(false)
 
   const handleEditClick = (event) => {
@@ -21,6 +22,12 @@ const ReviewTile = ({ review, user, patchReview, errors, reviewDelete }) => {
     buttons = <EditingButtons
         handleEditClick={handleEditClick}
         handleDeleteClick={handleDeleteClick} 
+      />
+    } else {
+      buttons = <VoteButtons
+        review={review}
+        user={user}
+        addVote={addVote} 
       />
     }
 
@@ -40,12 +47,12 @@ const ReviewTile = ({ review, user, patchReview, errors, reviewDelete }) => {
   }
   
   return (
-    <div className='callout'>
+    <div className='callout review-tile'>
       <div className='grid-x'>
-        <h5 className='cell small-6'>
+        <h5 className='cell small-12'>
           {review.title || 'Untitled'}
         </h5>
-        <p className='cell small-6 text-right'>
+        <p className='cell small-12 text-right'>
           Rating: {review.rating}
         </p>
       </div>

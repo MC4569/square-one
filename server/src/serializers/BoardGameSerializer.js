@@ -10,7 +10,7 @@ class BoardGameSerializer {
 
     serializedBoardgame.reviews = await boardgame.$relatedQuery('reviews')
     serializedBoardgame.reviews = await Promise.all(serializedBoardgame.reviews.map(review => {
-      return ReviewSerializer.getSummary(review, currentUserId)
+      return ReviewSerializer.getDetails(review, currentUserId)
     }))
     return serializedBoardgame
   }

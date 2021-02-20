@@ -3,7 +3,7 @@ import { ValidationError } from 'objection'
 import cleanUserInput from '../../../services/cleanUserInput.js'
 
 import ReviewSerializer from '../../../serializers/ReviewSerializer.js'
-import { BoardGame, Review } from '../../../models/index.js'
+import { BoardGame, Review, Vote } from '../../../models/index.js'
 
 const boardgameReviewsRouter = new express.Router({ mergeParams: true })
 
@@ -14,7 +14,7 @@ boardgameReviewsRouter.post('/', async (req, res) => {
 
   try {
     const newReview = await Review.query().insertAndFetch({ ...cleanBody, boardgameId})
-    const serializedReview = ReviewSerializer.getSummary(newReview, newReview.userId)
+    const serializedReview = await ReviewSerializer.getDetails(newReview, newReview.userId)
     return res.status(201).json({ review: serializedReview })
   } catch (error) {
     if (error instanceof ValidationError) {
@@ -35,12 +35,27 @@ boardgameReviewsRouter.patch('/', async (req, res) => {
     const userId = review.userId
     const boardgame = await BoardGame.query().findById(boardgameId)
     const reviews = await boardgame.$relatedQuery('reviews')
-    const serializedReviews = await Promise.all(reviews.map(review => ReviewSerializer.getSummary(review, userId)))
+    const serializedReviews = await Promise.all(reviews.map(review => ReviewSerializer.getDetails(review, userId)))
     return res.status(201).json({ reviews: serializedReviews })
   } catch (error) {
     if (error instanceof ValidationError) {
       return res.status(422).json({ errors: error.data })
     }
+    return res.status(500).json({ errors: error })
+  }
+})
+
+boardgameReviewsRouter.post('/vote', async (req, res) => {
+  const boardgameId = req.params.boardgameId
+  const body = req.body
+
+  try {
+    await Vote.query().insert(body)
+    const boardgame = await BoardGame.query().findById(boardgameId)
+    const reviews = await boardgame.$relatedQuery('reviews')
+    const serializedReviews = await Promise.all(reviews.map(review => ReviewSerializer.getDetails(review)))
+    return res.status(201).json({ reviews: serializedReviews })
+  } catch (error) {
     return res.status(500).json({ errors: error })
   }
 })

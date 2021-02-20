@@ -1,9 +1,37 @@
 import express from 'express' 
 import ReviewSerializer from '../../../serializers/ReviewSerializer.js' 
 
-import { BoardGame, Review } from '../../../models/index.js'
+import { BoardGame, Review, Vote } from '../../../models/index.js'
 
 const reviewsRouter = new express.Router()
+
+reviewsRouter.put('/vote', async (req, res) => {
+  const { userId, reviewId, voteType } = req.body
+
+  try {
+    const vote = await Vote.query().findOne({userId, reviewId})
+    if (vote && vote.voteType == voteType) {
+      return res.status(304)
+    } else {
+      if (!vote) {
+        await Vote.query().insert({ userId, reviewId, voteType })
+        res.status(201)
+      } else if (vote.voteType != voteType) {
+        await Vote.query().findById(vote.id).patch({ voteType })
+        res.status(200)
+      }
+      const review = await Review.query().findById(reviewId)
+      const boardgame = await BoardGame.query().findById(review.boardgameId)
+      const reviews = await boardgame.$relatedQuery('reviews')
+      const serializedReviews = await Promise.all(reviews.map (review => {
+        return ReviewSerializer.getDetails(review, userId)
+      }))
+      return res.json({ reviews: serializedReviews })
+    }
+  } catch (error) {
+    return res.status(500).json({ error: error })
+  }
+})
 
 reviewsRouter.delete('/:id', async (req, res) => {
   const reviewId = req.params.id
@@ -15,7 +43,7 @@ reviewsRouter.delete('/:id', async (req, res) => {
     await Review.query().deleteById(reviewId)
     const reviews = await boardgame.$relatedQuery('reviews')
     const serializedReviews = await Promise.all(reviews.map(review => {
-      return ReviewSerializer.getSummary(review, userId)
+      return ReviewSerializer.getDetails(review, userId)
     }))
     return res.status(200).json({ reviews: serializedReviews })
   } catch (error) {

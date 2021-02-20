@@ -61,6 +61,7 @@ const NewReviewForm = ({ addReview, errors }) => {
             name='title'
             onChange={handleInputChange}
             value={newReview.title} 
+            className='form-field'
           />
         </label>
 
@@ -70,6 +71,7 @@ const NewReviewForm = ({ addReview, errors }) => {
             name='content'
             onChange={handleInputChange}
             value={newReview.content} 
+            className='form-field'
           />
         </label>
 

@@ -51,7 +51,7 @@ const EditReviewForm = ({ previousReview, patchReview, updateEditable, errors })
             <div className='cell small-3'>
               <div className='grid-x'>
                 <div className='cell small-6'>
-                  <label htmlFor='edit-racing' className='text-right middle form-label'>Rating:</label>
+                  <label htmlFor='edit-rating' className='text-right middle form-label'>Rating:</label>
                 </div>
                 <div className='cell small-6'>
                   <select
@@ -84,7 +84,7 @@ const EditReviewForm = ({ previousReview, patchReview, updateEditable, errors })
               />
             </div>
           </div>
-          <input className='button' type='submit' value='Submit'/>
+          <input className='button' type='submit' value='Save'/>
         </div>       
       </form>
     </div>

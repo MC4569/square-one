@@ -9,6 +9,7 @@ const BoardGameShowPage = ({user}) => {
   const [boardgame, setBoardgame] = useState({})
   const [reviews, setReviews] = useState([])
   const [errors, setErrors] = useState({})
+
   const { id } = useParams()
 
   const getBoardGame = async () => {
@@ -21,6 +22,7 @@ const BoardGameShowPage = ({user}) => {
       }
       const body = await response.json()
       setBoardgame(body.boardgame)
+      setReviews(body.boardgame.reviews)
     } catch (error) {
       console.error(error)
       console.error( `Error in fetch ${error.message}`)
@@ -50,8 +52,8 @@ const BoardGameShowPage = ({user}) => {
         const body = await response.json()
         setReviews(
           [...reviews,
-          body.review]
-        )
+          body.review
+        ])
         setErrors({})
         return true
       }
@@ -65,7 +67,7 @@ const BoardGameShowPage = ({user}) => {
       const response = await fetch(`/api/v1/boardgames/${id}/reviews`, {
         method: 'PATCH',
         headers: new Headers({
-          'content-type': 'application/json'
+          'Content-type': 'application/json'
         }),
         body: JSON.stringify(updatedReview)
       })
@@ -86,6 +88,7 @@ const BoardGameShowPage = ({user}) => {
         return true
       }
     } catch (error) {
+      console.error(error)
       console.error(`Error in fetch ${error.message}`)
     }
   }
@@ -95,7 +98,7 @@ const BoardGameShowPage = ({user}) => {
       const response = await fetch(`/api/v1/reviews/${reviewId}`, {
         method: 'DELETE',
         headers: new Headers({
-          'content-type': 'applications/json'
+          'Content-type': 'application/json'
         })
       })
       if (!response.ok) {
@@ -107,13 +110,37 @@ const BoardGameShowPage = ({user}) => {
       setErrors({})
       return true
     } catch (error) {
+      console.error(error)
       console.error(`Error in fetch ${error.message}`)
+    }
+  }
+
+  const addVote = async (voteData) => {
+    try {
+      const response = await fetch(`/api/v1/reviews/vote`, {
+        method: 'PUT',
+        headers: new Headers({
+          'Content-type': 'application/json'
+        }),
+        body: JSON.stringify(voteData)
+      })
+      if (!response.ok) {
+        const errorMessage = `${response.status} (${response.statusText})`
+        throw new Error(errorMessage)
+      } else {
+        const body = await response.json()
+        setReviews(body.reviews)
+        return true
+      }
+    } catch (error) {
+      console.log(error)
+      console.error(error)
     }
   }
 
   useEffect(() => {
     getBoardGame()
-  }, [reviews])
+  }, [])
 
   return (
     <div className="boardgame-show">
@@ -129,6 +156,7 @@ const BoardGameShowPage = ({user}) => {
               user={user}
               patchReview={patchReview}
               errors={errors}
+              addVote={addVote}
               reviewDelete={reviewDelete}
             />
           </div>
