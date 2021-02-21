@@ -30,7 +30,7 @@ class Review extends Model {
   }
 
   static get relationMappings() {
-    const { User, BoardGame } = require('./index.js')
+    const { User, BoardGame, Vote } = require('./index.js')
 
     return {
       user: {
@@ -47,6 +47,26 @@ class Review extends Model {
         join: {
           from: 'reviews.boardgameId',
           to: 'boardgames.id'
+        }
+      },
+      votes: {
+        relation: Model.HasManyRelation,
+        modelClass: Vote,
+        join: {
+          from: 'reviews.id',
+          to: 'votes.reviewId'
+        }
+      },
+      votedUsers: {
+        relation: Model.ManyToManyRelation,
+        modelClass: User,
+        join: {
+          from: 'reviews.id',
+          through: {
+            from: 'votes.reviewId',
+            to: 'votes.userId'
+          },
+          to: 'users.id'
         }
       }
     }
