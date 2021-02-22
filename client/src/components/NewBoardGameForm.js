@@ -99,7 +99,7 @@ const NewBoardGameForm = props => {
 
         <label>
           Game Description:
-          <input
+          <textarea
             type='text'
             name='description'
             onChange={handleInputChange}
