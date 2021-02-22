@@ -22,6 +22,9 @@ class GenreSeeder {
         name: 'Memory'
       },
       {
+        name: 'Mystery'
+      },
+      {
         name: 'Puzzle'
       },
       {
@@ -32,6 +35,9 @@ class GenreSeeder {
       },
       {
         name: 'Science Fiction'
+      },
+      {
+        name: 'Video Game Themed'
       },
     ]
 
