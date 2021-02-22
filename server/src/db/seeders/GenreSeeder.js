@@ -10,19 +10,40 @@ class GenreSeeder {
         name: 'City Building'
       },
       {
+        name: 'Civilization'
+      },
+      {
         name: 'Educational'
+      },
+      {
+        name: 'Exploration'
+      },
+      {
+        name: 'Family Games'
       },
       {
         name: 'Fantasy'
       },
       {
+        name: 'Farming'
+      },
+      {
         name: 'Horror'
+      },
+      {
+        name: 'Medical'
       },
       {
         name: 'Memory'
       },
       {
         name: 'Mystery'
+      },
+      {
+        name: 'Mythology'
+      },
+      {
+        name: 'Nautical'
       },
       {
         name: 'Puzzle'
@@ -37,7 +58,19 @@ class GenreSeeder {
         name: 'Science Fiction'
       },
       {
+        name: 'Spy/Espionage'
+      },
+      {
+        name: 'Survival'
+      },
+      {
         name: 'Video Game Themed'
+      },
+      {
+        name: 'Video Game Themed'
+      },
+      {
+        name: 'Wargame'
       },
     ]
 
