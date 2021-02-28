@@ -12,6 +12,7 @@ class BoardGameSeeder {
       {
         title: "Dice Throne",
         brandName: "Roxley Games",
+        developer: "Gavan Brown, Manny Trembley",
         description: "A heart-pumping, fast-playing game of skilled card play and dice manipulation. The game is played over a series of rounds where you will be rolling your hero's dice up to 3 times. You will use the combination of dice symbols or numbers to activate your hero's abilities to attack your opponent(s).",
         genreId: adventure.id
       },

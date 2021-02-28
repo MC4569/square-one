@@ -6,19 +6,17 @@
  * @param {Knex} knex
  */
 exports.up = async (knex) => {
-  return knex.schema.createTable('votes', (table) => {
+  return knex.schema.createTable('boardgames', table => {
     table.bigIncrements('id')
-    table.string('voteType').notNullable()
-    table.bigInteger('userId')
+    table.string('title').notNullable()
+    table.string('brandName').notNullable()
+    table.string('description', 1000).notNullable()
+    table.string('developer').notNullable()
+    table.bigInteger('genreId')
       .notNullable()
       .unsigned()
       .index()
-      .references('users.id')
-    table.bigInteger('reviewId')
-      .notNullable()
-      .unsigned()
-      .index()
-      .references('reviews.id')
+      .references('genres.id')
     table.timestamp('createdAt')
       .notNullable()
       .defaultTo(knex.fn.now())
@@ -32,5 +30,6 @@ exports.up = async (knex) => {
  * @param {Knex} knex
  */
 exports.down = async (knex) => {
-  return knex.schema.dropTableIfExists('votes')
+  return knex.schema.dropTableIfExists('boardgames')
 }
+

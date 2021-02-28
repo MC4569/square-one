@@ -8,10 +8,11 @@ class BoardGame extends Model {
   static get jsonSchema() {
     return {
       type: 'object',
-      required: ['title', 'brandName', 'description'],
+      required: ['title', 'brandName', 'developer', 'description'],
       properties: {
         title: {type: 'string'},
         brandName: {type: 'string'},
+        developer: {type: 'string'},
         description: {type: 'string'}
       }
     }

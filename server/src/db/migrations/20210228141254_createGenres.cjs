@@ -8,7 +8,7 @@
 exports.up = async (knex) => {
   return knex.schema.createTable('genres', table => {
     table.bigIncrements('id')
-    table.string('name')
+    table.string('name').notNullable()
     table.timestamp('createdAt')
       .notNullable()
       .defaultTo(knex.fn.now())
