@@ -8,6 +8,7 @@ const BoardGameTile = ({boardgame}) => {
         <div className="card-section">
           <Link to={`/boardgames/${boardgame.id}`}>
             <h4>{boardgame.title}, {boardgame.brandName}</h4>
+            <p>{boardgame.developer}</p>
             <p>{boardgame.description}</p>
           </Link>
         </div>
